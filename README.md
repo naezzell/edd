@@ -11,7 +11,7 @@ We modeled our package structure after `numpy`, but by no means did we try to ma
 
 ### Summary of structure
 
-Anyway, all the source code is located in `src/edd`. This main directory has several sub-directories
+Al the source code is located in `src/edd`. This main directory has several sub-directories
 - `backend` -- contains the `IBMQBackend` class for sending/receiving jobs from IBM
 - `pulse` -- contains the `IBMQDdSchedule` class which inherits from `qiskit.pulse.Schedule` class. Contains the DD sequence definitions in terms of pulse instructions. Allows one to add DD sequences to it as methods. 
 - `circuit` -- contains `IBMQDdCircuit` class which inherits from qiskit.QuantumCircuit but otherwise should behave roughly the same as `pulse`. However, we ended up not using this class for the paper, so no promises that it's on par with `pulse`
@@ -19,6 +19,8 @@ Anyway, all the source code is located in `src/edd`. This main directory has sev
 - `data` -- contains `IBMQData` class which is initialized with job data from IBM devices and can re-format and summarize it with useful statistics
 - `workflow` -- contains scripts useful for automating the job-submission, data extraction, and analysis for experiments used in the paper. For example, `gen_fds_on_fly_and_submit` was used to submit many circuits for this purpose. 
 - `states` -- contains "u3_list.npy" which encodes the u3 parameters which define the static set of Haar random states we test over
+
+The data and analysis is located in the `edd_pub_data.tar.gz` file. We will discuss this more later. 
 
 ### Import patterns
 Basic usage follows a `numpy` like convention. For example, a typical set of imports looks like
@@ -155,7 +157,7 @@ gives the answer `counts = {'0': 981, '1': 19}` on this day which encodes an emp
 
 
 ## (iii) Relevant parts to paper
-The job submission scripts, data analysis scripts, raw data, and machine calibration information is contained in a Zenodo project. If you are accessing the Github repo on Zenodo, it's the directory called "EDD_Paper_Data," otherwise, visit this link. Within the EDD_Paper_Data top level directory, there are data wrangling scripts, 
+The job submission scripts, data analysis scripts, raw data, and machine calibration information is contained in `edd_pub_data.tar.gz`. Within the edd_pub_data top level directory, there are data wrangling scripts, 
 - pauliData_wrangle.ipynb -- wrangle Pauli experiment data
 - haarData_wrangle.ipynb -- wrangles Haar convergence experiment data
 - haarDelayData_wrangle.ipynb -- wrangles Haar delay experiment data
@@ -174,10 +176,10 @@ Within the Armonk directory, there are three sub-directories
 
 ### Bottom line summary
 We will discuss what each important file/ directory in the above PauliData, HaarData, and HaarDelayData is. But the bottom line is 
-- EDD_Paper_Data/Armonk/PauliData/csvPauliData contains the Pauli experiment fidelity decay data in CSV format: `T, empirical Uhlmann fidelity, 2 sigma bootstrapped error on fidelity`
-- EDD_Paper/Data/Armonk/PauliData/armonkPauliAnalysis.nb is the Mathematica script we used to generate publication plots
-- EDD_Paper_Data/Armonk/HaarDelayData/csvHaarFreeData contains the Haar delay experiment data in CSV format: `d, empirical Uhlmann fidelity, 2 sigma bootstrapped error on fidelity`
-- EDD_Paper_Data/Armonk/HaarDelayData/ArmonkHaarDelayDataAnalysis.nb is the Mathematica script we used to generate publication plots 
+- edd_pub_data/Armonk/PauliData/csvPauliData contains the Pauli experiment fidelity decay data in CSV format: `T, empirical Uhlmann fidelity, 2 sigma bootstrapped error on fidelity`
+- edd_pub_data/Armonk/PauliData/armonkPauliAnalysis.nb is the Mathematica script we used to generate publication plots
+- edd_pub_data/Armonk/HaarDelayData/csvHaarFreeData contains the Haar delay experiment data in CSV format: `d, empirical Uhlmann fidelity, 2 sigma bootstrapped error on fidelity`
+- edd_pub_data/Armonk/HaarDelayData/ArmonkHaarDelayDataAnalysis.nb is the Mathematica script we used to generate publication plots 
 
 
 #### The PauliData folder
