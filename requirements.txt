@@ -1,0 +1,4 @@
+qiskit
+jupyterlab
+matplotlib
+pyyaml

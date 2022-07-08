@@ -1,0 +1,16 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: "edd"
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Nic Ezzell
+    email: naezzell@proton.me
+    affiliation: University of Southern California
+version: 1.0.0
+date-released: 2022-06-09
+url: "https://github.com/USCqserver/edd-dev"
