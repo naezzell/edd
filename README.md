@@ -11,7 +11,15 @@ We modeled our package structure after `numpy`, but by no means did we try to ma
 
 ### Summary of structure
 
-Al the source code is located in `src/edd`. This main directory has several sub-directories
+There are three main components to our code. 
+- `src/edd` -- hosts our custom modules that interface directly with the IBM quantum devices, i.e. to write, send, and process quantum memory experiments
+- `dataAndAnalysis` -- contains scripts to wrangle and analyze the experiment data alongside the raw data itself
+- everything else -- contains requirements and instructions for a local install via pip
+
+Using the code in `src/edd` is like using `numpy` or `qiskit` itself, so let us explain it further. We will discuss the structure of the `dataAndAnalysis` in Section (iii). 
+
+
+This code in the `src/edd` directory has several sub-directories
 - `backend` -- contains the `IBMQBackend` class for sending/receiving jobs from IBM
 - `pulse` -- contains the `IBMQDdSchedule` class which inherits from `qiskit.pulse.Schedule` class. Contains the DD sequence definitions in terms of pulse instructions. Allows one to add DD sequences to it as methods. 
 - `circuit` -- contains `IBMQDdCircuit` class which inherits from qiskit.QuantumCircuit but otherwise should behave roughly the same as `pulse`. However, we ended up not using this class for the paper, so no promises that it's on par with `pulse`
@@ -19,8 +27,6 @@ Al the source code is located in `src/edd`. This main directory has several sub-
 - `data` -- contains `IBMQData` class which is initialized with job data from IBM devices and can re-format and summarize it with useful statistics
 - `workflow` -- contains scripts useful for automating the job-submission, data extraction, and analysis for experiments used in the paper. For example, `gen_fds_on_fly_and_submit` was used to submit many circuits for this purpose. 
 - `states` -- contains "u3_list.npy" which encodes the u3 parameters which define the static set of Haar random states we test over
-
-The data and analysis is located in the `edd_pub_data.tar.gz` file. We will discuss this more later. 
 
 ### Import patterns
 Basic usage follows a `numpy` like convention. For example, a typical set of imports looks like
@@ -157,22 +163,32 @@ gives the answer `counts = {'0': 981, '1': 19}` on this day which encodes an emp
 
 
 ## (iii) Relevant parts to paper
-The job submission scripts, data analysis scripts, raw data, and machine calibration information is contained in `edd_pub_data.tar.gz`. Within the edd_pub_data top level directory, there are data wrangling scripts, 
+The job submission scripts, data analysis scripts, raw data, and machine calibration information is contained in `dataAndAnalysis`. Each relevant part here is zipped to prevent the repository from being too large. The zipped files consist of
+- `eddDataWranling` -- contains scripts to wrangle data from experiments into a form to be analyzed
+- `armonkDataAnalysis` -- contains processed ibmq_armonk data, scripts to submit jobs and anlayze the data, and all armonk graphs in paper
+- `bogotaDataAnalysis` -- same as armonk above
+- `jakartaDataAnalysis` -- same as armonk above
+- `methodologyDataAnalysis` -- contains scripts for justifying our methodology (i.e. Appendix C)
+
+
+`eddDataWrangling` file summary
 - pauliData_wrangle.ipynb -- wrangle Pauli experiment data
 - haarData_wrangle.ipynb -- wrangles Haar convergence experiment data
 - haarDelayData_wrangle.ipynb -- wrangles Haar delay experiment data
 - average_T1_and_T2.ipynb -- wrangles all machine calibration text dumps into an average T1 and T2 across all experiments for each device
 as well as a directory for each device
-- Armonk/
-- Bogota/
-- Jakarta/
-These device specific directories contain the experiment submission sripts, raw data, machine calibration files, and processed data. For example purpses, we will discuss the Armonk folder structure, but the other folders follow the same patterns. 
 
-### Exploring Armonk submission scripts and data
-Within the Armonk directory, there are three sub-directories
+`armonkDataAnaysis` file summary (similar for bogota and jakarta)
+- These device specific directories contain the experiment submission sripts, raw data, machine calibration files, and processed data. For example purposes, we will discuss the Armonk folder structure, but the other folders follow the same patterns. 
+Within this directory, there are three sub-directories whose structure is otherwise self-contained 
 - PauliData -- contains Pauli experiment submission script `job_submit.ipynb`, data, analysis, and plots put in paper
 - HaarData -- contains Haar convergence experiment submission script, data, analysis, and plots put in paper
 - HaarDelayData -- contains Haar delay experiment submission script, data, analysis, and plots put in paper
+
+`methodologyDataAnalysis` file summary (justification of methods via Appendix C)
+- `armonk_methodology_part1.nb` -- analysis and graph generation of subsections 1 -- 5 in appendix C
+- `armonk_methodology_part2.nb` --  analysis and graph generation of subsections 6 onward in appendix C
+- `methodology_figures/` -- collection of all methodology figures used in Appendix C
 
 ### Bottom line summary
 We will discuss what each important file/ directory in the above PauliData, HaarData, and HaarDelayData is. But the bottom line is 
