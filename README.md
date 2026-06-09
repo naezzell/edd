@@ -258,5 +258,5 @@ Now, even though pulses are defined in increments in `dt`, the total sum of all 
 backend.get_acquire_alignment()
 ```
 
-As far as I can tell, this is not a well documented constraint of devices, as using `OpenPulse` is still fairly new. This has important implications for how to run DD experiments when varying the pulse interval. In short, the total interval delays (the free evolution periods between pulses) must also be a mutltiple of 16. Not respecting this constraint will lead to vary biare results as we described in a note in an early draft (but redacted for being too int he weeds) which may help clarify using equations/ empirical results: 
+As far as I can tell, this is not a well documented constraint of devices, as using `OpenPulse` is still fairly new. This has important implications for how to run DD experiments when varying the pulse interval. In short, the total interval delays (the free evolution periods between pulses) must also be a mutltiple of 16. Not respecting this constraint will lead to vary bizare results as we described in a note in an early draft (but redacted for being too in the weeds) which may help clarify using equations/ empirical results: 
 <img width="435" alt="Screen Shot 2022-07-07 at 3 55 40 PM" src="https://user-images.githubusercontent.com/29308150/177884776-e63ae822-31d6-41b3-bfcd-c0581e1a8c77.png">
